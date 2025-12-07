@@ -1,158 +1,180 @@
 {
   "classes": [
     {
-      "name": "Person",
+      "name": "CieAerienne",
       "attributes": [
-        { "name": "id", "type": "int" },
-        { "name": "name", "type": "String" },
-        { "name": "email", "type": "String" }
+        {"name": "nom", "type": "String"},
+        {"name": "pays", "type": "String"},
+        {"name": "codeIATA", "type": "String"},
+        {"name": "callsignATC", "type": "String"}
       ],
       "operations": []
     },
     {
-      "name": "Customer",
-      "attributes": [],
-      "operations": []
-    },
-    {
-      "name": "Employee",
-      "attributes": [],
-      "operations": []
-    },
-    {
-      "name": "Order",
+      "name": "Vol",
       "attributes": [
-        { "name": "number", "type": "String" },
-        { "name": "date", "type": "Date" },
-        { "name": "status", "type": "String" }
+        {"name": "numero", "type": "String"},
+        {"name": "reservoir(doute)", "type": "String"},
+        {"name": "heureDepart", "type": "Time"},
+        {"name": "heureArrivee", "type": "Time"}
       ],
       "operations": []
     },
     {
-      "name": "OrderLine",
+      "name": "Aeroport",
       "attributes": [
-        { "name": "quantity", "type": "int" },
-        { "name": "unitPrice", "type": "double" }
+        {"name": "nom", "type": "String"},
+        {"name": "pays", "type": "String"},
+        {"name": "codeIATA", "type": "String"},
+        {"name": "codeOPC", "type": "String"},
+        {"name": "latitude", "type": "float"},
+        {"name": "longitude", "type": "float"},
+        {"name": "altitude", "type": "float"}
       ],
       "operations": []
     },
     {
-      "name": "Product",
+      "name": "Ville",
       "attributes": [
-        { "name": "sku", "type": "String" },
-        { "name": "label", "type": "String" },
-        { "name": "price", "type": "double" }
+        {"name": "nom", "type": "String"},
+        {"name": "pays", "type": "String"},
+        {"name": "latitude", "type": "float"},
+        {"name": "longitude", "type": "float"},
+        {"name": "altitude", "type": "float"}
       ],
       "operations": []
     },
     {
-      "name": "Category",
+      "name": "Appareil",
       "attributes": [
-        { "name": "name", "type": "String" }
+        {"name": "immatriculation", "type": "String"},
+        {"name": "modele", "type": "String"},
+        {"name": "capacite", "type": "int"}
       ],
       "operations": []
     },
     {
-      "name": "Payment",
+      "name": "Piste",
       "attributes": [
-        { "name": "amount", "type": "double" },
-        { "name": "method", "type": "String" },
-        { "name": "date", "type": "Date" }
+        {"name": "designation", "type": "String"},
+        {"name": "longueur", "type": "int"},
+        {"name": "typeSurface", "type": "String"},
+        {"name": "typePiste", "type": "String"}
       ],
       "operations": []
     },
     {
-      "name": "Invoice",
+      "name": "Escale",
       "attributes": [
-        { "name": "number", "type": "String" },
-        { "name": "total", "type": "double" }
+        {"name": "heureDepart", "type": "Time"},
+        {"name": "heureArrivee", "type": "Time"}
       ],
       "operations": []
     },
     {
-      "name": "NotificationService",
-      "attributes": [],
-      "operations": [
-        {
-          "name": "sendEmail",
-          "return_type": "void",
-          "parameters": ["order"]
-        }
-      ]
+      "name": "Reservation",
+      "attributes": [
+        {"name": "statutConfirmation", "type": "String"},
+        {"name": "noConfirmation", "type": "String"}
+      ],
+      "operations": []
+    },
+    {
+      "name": "Passager",
+      "attributes": [
+        {"name": "nom", "type": "String"},
+        {"name": "adresse", "type": "String"},
+        {"name": "telephone", "type": "String"},
+        {"name": "courriel", "type": "String"},
+        {"name": "genre", "type": "String"},
+        {"name": "passeport", "type": "String"},
+        {"name": "pays", "type": "String"}
+      ],
+      "operations": []
+    },
+    {
+      "name": "Client",
+      "attributes": [
+        {"name": "nom", "type": "String"},
+        {"name": "adresse", "type": "String"},
+        {"name": "telephone", "type": "String"},
+        {"name": "courriel", "type": "String"},
+        {"name": "carteCredit", "type": "String"}
+      ],
+      "operations": []
     }
   ],
   "relationships": [
     {
-      "type": "inheritance",
-      "source": "Customer",
-      "target": "Person",
-      "source_multiplicity": null,
-      "target_multiplicity": null,
-      "role_name": null
-    },
-    {
-      "type": "inheritance",
-      "source": "Employee",
-      "target": "Person",
-      "source_multiplicity": null,
-      "target_multiplicity": null,
-      "role_name": null
+      "type": "association",
+      "from": "CieAerienne",
+      "to": "Vol",
+      "multiplicity_from": "1",
+      "multiplicity_to": "*"
     },
     {
       "type": "association",
-      "source": "Customer",
-      "target": "Order",
-      "source_multiplicity": { "lower": 1, "upper": 1 },
-      "target_multiplicity": { "lower": 0, "upper": null },
-      "role_name": "places"
+      "from": "Vol",
+      "to": "Aeroport",
+      "multiplicity_from": "1",
+      "multiplicity_to": "1",
+      "role_name": "partDe"
     },
     {
       "type": "association",
-      "source": "Order",
-      "target": "Payment",
-      "source_multiplicity": { "lower": 1, "upper": 1 },
-      "target_multiplicity": { "lower": 0, "upper": null },
-      "role_name": "pays"
+      "from": "Vol",
+      "to": "Aeroport",
+      "multiplicity_from": "1",
+      "multiplicity_to": "1",
+      "role_name": "arriveA"
     },
     {
       "type": "association",
-      "source": "Order",
-      "target": "Invoice",
-      "source_multiplicity": { "lower": 0, "upper": 1 },
-      "target_multiplicity": { "lower": 1, "upper": 1 },
-      "role_name": "generates"
+      "from": "Vol",
+      "to": "Appareil",
+      "multiplicity_from": "*",
+      "multiplicity_to": "1",
+      "role_name": "exploitPar"
     },
     {
       "type": "association",
-      "source": "Category",
-      "target": "Product",
-      "source_multiplicity": { "lower": 1, "upper": 1 },
-      "target_multiplicity": { "lower": 0, "upper": null },
-      "role_name": "groups"
+      "from": "Aeroport",
+      "to": "Ville",
+      "multiplicity_from": "1",
+      "multiplicity_to": "1",
+      "role_name": "dessert"
     },
     {
-      "type": "aggregation",
-      "source": "Category",
-      "target": "Product",
-      "source_multiplicity": { "lower": 1, "upper": 1 },
-      "target_multiplicity": { "lower": 0, "upper": null },
-      "role_name": "aggregation"
+      "type": "association",
+      "from": "Aeroport",
+      "to": "Piste",
+      "multiplicity_from": "1",
+      "multiplicity_to": "*",
+      "role_name": "pisteAeroport"
     },
     {
-      "type": "composition",
-      "source": "Order",
-      "target": "OrderLine",
-      "source_multiplicity": { "lower": 1, "upper": 1 },
-      "target_multiplicity": { "lower": 1, "upper": null },
-      "role_name": "composition"
+      "type": "association",
+      "from": "Vol",
+      "to": "Escale",
+      "multiplicity_from": "*",
+      "multiplicity_to": "*",
+      "role_name": "effectueEscale"
     },
     {
-      "type": "dependency",
-      "source": "NotificationService",
-      "target": "Order",
-      "source_multiplicity": null,
-      "target_multiplicity": null,
-      "role_name": "uses"
+      "type": "association",
+      "from": "Reservation",
+      "to": "Passager",
+      "multiplicity_from": "*",
+      "multiplicity_to": "1",
+      "role_name": "concerne"
+    },
+    {
+      "type": "association",
+      "from": "Reservation",
+      "to": "Client",
+      "multiplicity_from": "*",
+      "multiplicity_to": "1",
+      "role_name": "faitePar"
     }
   ]
 }
