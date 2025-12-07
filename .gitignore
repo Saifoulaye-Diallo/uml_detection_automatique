@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Application specific
+src/webapp/uploads/
+*.png
+*.jpg
+*.jpeg
+!examples/student.png
+diff.json
+student_extracted.json
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Anciens dossiers (migration)
+uml_core/
+webapp/
+core/
+compare_image.py
+compare_json.py
+test_openai_key.py

@@ -1,0 +1,158 @@
+{
+  "classes": [
+    {
+      "name": "Person",
+      "attributes": [
+        { "name": "id", "type": "int" },
+        { "name": "name", "type": "String" },
+        { "name": "email", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Customer",
+      "attributes": [],
+      "operations": []
+    },
+    {
+      "name": "Employee",
+      "attributes": [],
+      "operations": []
+    },
+    {
+      "name": "Order",
+      "attributes": [
+        { "name": "number", "type": "String" },
+        { "name": "date", "type": "Date" },
+        { "name": "status", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "OrderLine",
+      "attributes": [
+        { "name": "quantity", "type": "int" },
+        { "name": "unitPrice", "type": "double" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Product",
+      "attributes": [
+        { "name": "sku", "type": "String" },
+        { "name": "label", "type": "String" },
+        { "name": "price", "type": "double" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Category",
+      "attributes": [
+        { "name": "name", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Payment",
+      "attributes": [
+        { "name": "amount", "type": "double" },
+        { "name": "method", "type": "String" },
+        { "name": "date", "type": "Date" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Invoice",
+      "attributes": [
+        { "name": "number", "type": "String" },
+        { "name": "total", "type": "double" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "NotificationService",
+      "attributes": [],
+      "operations": [
+        {
+          "name": "sendEmail",
+          "return_type": "void",
+          "parameters": ["order"]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "type": "inheritance",
+      "source": "Customer",
+      "target": "Person",
+      "source_multiplicity": null,
+      "target_multiplicity": null,
+      "role_name": null
+    },
+    {
+      "type": "inheritance",
+      "source": "Employee",
+      "target": "Person",
+      "source_multiplicity": null,
+      "target_multiplicity": null,
+      "role_name": null
+    },
+    {
+      "type": "association",
+      "source": "Customer",
+      "target": "Order",
+      "source_multiplicity": { "lower": 1, "upper": 1 },
+      "target_multiplicity": { "lower": 0, "upper": null },
+      "role_name": "places"
+    },
+    {
+      "type": "association",
+      "source": "Order",
+      "target": "Payment",
+      "source_multiplicity": { "lower": 1, "upper": 1 },
+      "target_multiplicity": { "lower": 0, "upper": null },
+      "role_name": "pays"
+    },
+    {
+      "type": "association",
+      "source": "Order",
+      "target": "Invoice",
+      "source_multiplicity": { "lower": 0, "upper": 1 },
+      "target_multiplicity": { "lower": 1, "upper": 1 },
+      "role_name": "generates"
+    },
+    {
+      "type": "association",
+      "source": "Category",
+      "target": "Product",
+      "source_multiplicity": { "lower": 1, "upper": 1 },
+      "target_multiplicity": { "lower": 0, "upper": null },
+      "role_name": "groups"
+    },
+    {
+      "type": "aggregation",
+      "source": "Category",
+      "target": "Product",
+      "source_multiplicity": { "lower": 1, "upper": 1 },
+      "target_multiplicity": { "lower": 0, "upper": null },
+      "role_name": "aggregation"
+    },
+    {
+      "type": "composition",
+      "source": "Order",
+      "target": "OrderLine",
+      "source_multiplicity": { "lower": 1, "upper": 1 },
+      "target_multiplicity": { "lower": 1, "upper": null },
+      "role_name": "composition"
+    },
+    {
+      "type": "dependency",
+      "source": "NotificationService",
+      "target": "Order",
+      "source_multiplicity": null,
+      "target_multiplicity": null,
+      "role_name": "uses"
+    }
+  ]
+}
