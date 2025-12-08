@@ -271,3 +271,4 @@ Pour toute question technique : ouvrir une issue sur GitHub.
 
 **UML Vision Grader Pro v2.0** • Propulsé par GPT-4o Vision, OpenCV & FastAPI • 2025
 
+FIN
