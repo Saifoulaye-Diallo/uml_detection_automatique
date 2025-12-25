@@ -1,8 +1,8 @@
-# 🎓 UML Vision Grader Pro
+# UML Vision Grader Pro
 
 Système de correction automatique de diagrammes UML de classes utilisant GPT-4o Vision et OpenCV.
 
-## 🌟 Fonctionnalités
+## Fonctionnalités
 
 - **Analyse IA avancée** : Utilise GPT-4o Vision pour extraire et comparer les diagrammes UML
 - **Prétraitement d'image optimisé** : Pipeline OpenCV en 11 étapes pour une reconnaissance maximale
@@ -10,26 +10,29 @@ Système de correction automatique de diagrammes UML de classes utilisant GPT-4o
 - **Comparaison rigoureuse** : Système de normalisation et détection de différences ultra-précis
 - **Rapport détaillé** : Statistiques visuelles et export JSON des différences
 
-## 📋 Prérequis
+## Prérequis
 
 - Python 3.8+
 - OpenAI API Key (GPT-4o Vision)
 - Windows/Linux/macOS
 
-## 🚀 Installation
+## Installation
 
 ### 1. Cloner le projet
 ```bash
-git clone <repository-url>
-cd "Code UML"
+git clone https://github.com/Saifoulaye-Diallo/uml_detection_automatique.git
+cd uml_detection_automatique
 ```
 
 ### 2. Créer l'environnement virtuel
 ```powershell
+# Windows PowerShell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1  # Windows PowerShell
-# ou
-source .venv/bin/activate  # Linux/macOS
+.\.venv\Scripts\Activate.ps1
+
+# Linux/macOS
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 ### 3. Installer les dépendances
@@ -37,12 +40,14 @@ source .venv/bin/activate  # Linux/macOS
 pip install -r requirements.txt
 ```
 
-### 4. Configuration
-Créez un fichier `.env` à la racine :
+### 4. Configuration de l'API OpenAI
+Créez un fichier `.env` à la racine du projet :
 ```env
 OPENAI_API_KEY=sk-proj-votre-clé-api-ici
 OPENAI_API_BASE=https://api.openai.com/v1
 ```
+
+**Important** : Obtenez votre clé API sur [platform.openai.com](https://platform.openai.com/api-keys)
 
 ## 🎯 Utilisation
 
@@ -50,20 +55,24 @@ OPENAI_API_BASE=https://api.openai.com/v1
 
 1. **Lancer le serveur** :
 ```powershell
-cd src
-uvicorn webapp.app:app --reload --host 0.0.0.0 --port 8000
+python run_server.py
 ```
 
-2. **Ouvrir le navigateur** :
-```
-http://localhost:8000
-```
+2. **Ouvrir l'interface** :
+   - Le serveur démarre sur `http://localhost:8000`
+   - L'interface s'ouvrira automatiquement dans votre navigateur
 
-3. **Téléverser les fichiers** :
-   - Diagramme UML de l'étudiant (PNG/JPG)
-   - Solution de référence (JSON)
+3. **Utiliser l'application** :
+   - **Téléverser** le diagramme UML de l'étudiant (PNG/JPG)
+   - **Téléverser** la solution de référence (JSON)
+   - **Configurer** les pénalités de notation (optionnel)
+   - **Lancer** l'analyse
+   - **Consulter** le rapport détaillé avec note, statistiques et différences
 
-4. **Analyser** et consulter le rapport détaillé
+### Interface Desktop
+L'application utilise un layout desktop professionnel avec :
+- **Panneau latéral gauche** : Upload des fichiers et configuration de notation
+- **Zone principale** : Affichage des résultats, score et rapport JSON
 
 ### Ligne de commande
 
@@ -73,142 +82,165 @@ python scripts/compare.py --student examples/student.png --reference examples/so
 
 Le fichier `diff.json` sera généré à la racine avec les différences.
 
-## 📂 Structure du projet
+## Structure du projet
 
 ```
-Code UML/
+uml_detection_automatique/
 ├── src/                         # Code source principal
-│   ├── uml_core/                # Moteur de base UML
-│   │   ├── models.py            # Modèles de données UML
-│   │   ├── vision_llm_client.py # Client GPT-4o Vision
+│   ├── uml_core/                # Moteur de traitement UML
+│   │   ├── models.py            # Modèles de données (UMLClass, UMLRelationship)
+│   │   ├── vision_llm_client.py # Client GPT-4o Vision avec retry SSL
 │   │   ├── preprocess_image.py  # Pipeline OpenCV (11 étapes)
+│   │   ├── grader.py            # Système de notation académique
 │   │   ├── serializer.py        # Sérialisation/désérialisation JSON
 │   │   ├── comparator.py        # Comparaison avec fuzzy matching
-│   │   └── env.py               # Gestion des variables d'environnement
+│   │   └── env.py               # Variables d'environnement
 │   │
-│   └── webapp/                  # Application web
-│       ├── app.py               # Backend FastAPI avec endpoints async
+│   └── webapp/                  # Application web FastAPI
+│       ├── app.py               # API REST avec endpoint /compare
 │       ├── templates/           # Templates Jinja2
-│       │   └── index.html       # Interface utilisateur moderne
-│       ├── static/              # Assets statiques (CSS, JS, images)
-│       └── uploads/             # Dossier temporaire pour fichiers uploadés
+│       │   └── index.html       # Interface desktop avec sidebar
+│       ├── static/              # Assets statiques
+│       └── uploads/             # Fichiers temporaires (gitignored)
 │
-├── scripts/                     # Scripts utilitaires
-│   └── compare.py               # CLI pour comparaison image + JSON
+├── scripts/                     # Scripts CLI
+│   ├── compare.py               # Comparaison en ligne de commande
+│   └── test_openai.py           # Diagnostic API OpenAI
 │
 ├── tests/                       # Tests unitaires
-│   ├── __init__.py
 │   └── test_models.py           # Tests des modèles UML
 │
-├── examples/                    # Fichiers d'exemple
-│   ├── student.png              # Diagramme d'exemple
-│   └── solution.json            # Référence d'exemple
+├── examples/                    # Exemples d'utilisation
+│   ├── student.png              # Diagramme étudiant exemple
+│   └── solution.json            # Solution de référence
 │
-├── docs/                        # Documentation détaillée
-│   ├── ARCHITECTURE.md          # Architecture technique
-│   └── INSTALLATION.md          # Guide d'installation
+├── docs/                        # Documentation technique
+│   ├── ARCHITECTURE.md          # Architecture complète
+│   ├── INSTALLATION.md          # Guide d'installation détaillé
+│   ├── TROUBLESHOOTING.md       # Résolution de problèmes
+│   └── PROMPT_OPTIMIZED.md      # Prompt engineering optimisé
 │
-├── .env                         # Variables d'environnement (gitignored)
-├── .env.example                 # Template de configuration
-├── .gitignore                   # Fichiers ignorés par Git
+├── run_server.py                # Script de démarrage serveur
 ├── requirements.txt             # Dépendances Python
-└── README.md                    # Documentation principale (ce fichier)
+├── .env.example                 # Template configuration
+├── .gitignore                   # Fichiers exclus de Git
+└── README.md                    # Ce fichier
 ```
 
-## 🧠 Architecture technique
+## Architecture technique
 
-### 1. Prétraitement d'image (OpenCV)
+### 1. Système de notation académique
 ```python
-# Pipeline en 11 étapes pour optimiser la reconnaissance
+# Système de grading avec pénalités configurables
+- Note sur 20 avec conversion en lettre (A+ à F)
+- Pénalités personnalisables par type d'erreur
+- Feedback détaillé pour l'étudiant
+- Export JSON du rapport de notation
+```
+
+### 2. Prétraitement d'image (OpenCV)
+```python
+# Pipeline optimisé en 11 étapes
 1. Redimensionnement intelligent (max 1536px)
-2. Conversion en niveaux de gris
-3. Denoising agressif (fastNlMeansDenoising)
+2. Conversion niveaux de gris
+3. Denoising (fastNlMeansDenoising h=10)
 4. Sharpening (kernel 3x3)
-5. Amélioration du contraste (CLAHE)
-6. Binarisation adaptative (Gaussian, blockSize=11)
+5. CLAHE (amélioration contraste)
+6. Binarisation adaptative (Gaussian)
 7. Morphologie (nettoyage artefacts)
-8. Recadrage intelligent (marges préservées)
-9. Upscaling si trop petite (<800px)
-10. Inversion si nécessaire (fond sombre)
-11. Export PNG compression maximale (0)
+8. Recadrage intelligent
+9. Upscaling si nécessaire
+10. Inversion automatique (fond sombre)
+11. Export PNG optimisé
 ```
 
-### 2. Extraction et comparaison (GPT-4o Vision)
+### 3. Extraction IA (GPT-4o Vision)
 ```python
-# Prompt en 4 phases rigoureuses
-PHASE 1 → Extraction brute depuis l'image
-PHASE 2 → Normalisation des éléments
-PHASE 3 → Comparaison avec le JSON de référence
-PHASE 4 → Génération du diff JSON final
+# Prompt optimisé en 4 phases
+PHASE 1 → Extraction depuis l'image
+PHASE 2 → Normalisation (camelCase, visibilités)
+PHASE 3 → Comparaison avec JSON référence
+PHASE 4 → Génération rapport différences
 ```
 
-### 3. Modèles UML
-- **UMLClass** : Nom, attributs, opérations
-- **UMLAttribute** : Nom, type
-- **UMLOperation** : Nom, paramètres, type de retour
-- **UMLRelationship** : Source, cible, type, multiplicités
-
-### 4. Différences détectées
+### 4. Comparaison et grading
+```python
+# Détection de 10 types d'erreurs
+- Classes manquantes/en trop
+- Attributs manquants/en trop  
+- Opérations manquantes/en trop
+- Relations manquantes/en trop
+- Multiplicités incorrectes
+- Problèmes de nommage
+```
+### Structure du rapport de notation
 ```json
 {
-  "missing_classes": ["Classe absente"],
-  "extra_classes": ["Classe en trop"],
-  "missing_attributes": [{"class": "X", "attribute": "attr"}],
-  "extra_attributes": [...],
-  "missing_operations": [...],
-  "extra_operations": [...],
-  "missing_relationships": [...],
-  "extra_relationships": [...],
-  "incorrect_multiplicities": [{"relation": "...", "expected": "1..*", "found": "0..*"}],
-  "naming_issues": [{"type": "class", "found": "person", "expected": "Person"}]
+  "diff": {
+    "missing_classes": ["Classe1"],
+    "extra_classes": [],
+    "missing_attributes": [{"class": "Person", "attribute": "email: String"}],
+    ...
+  },
+  "grading": {
+    "score": 15.5,
+    "max_score": 20.0,
+    "percentage": 77.5,
+    "grade": "B",
+    "points_lost": 4.5,
+    "feedback": "Bon travail, quelques éléments manquants",
+    "error_breakdown": {
+      "missing_class": 2.0,
+      "missing_attribute": 0.5,
+      ...
+    },
+    "total_errors": 5
+  }
 }
 ```
 
-## 🎨 Interface Web
+## Interface Web
 
-### Caractéristiques UI
-- **Design moderne** : Gradient animé bleu/violet/rose avec glassmorphism
-- **Animations fluides** : Float, pulse, gradient, bounce
-- **Feedback visuel** : Loading spinner, prévisualisations de fichiers, toasts
-- **Statistiques visuelles** : 9 cartes colorées avec icônes SVG uniques
-- **Terminal de code** : Affichage JSON avec scrollbar personnalisée
-- **Responsive** : Compatible mobile/tablette/desktop
-- **Score adaptatif** : Couleurs vert/jaune/orange/rouge selon les erreurs
+### Fonctionnalités
+- **Layout desktop** : Sidebar fixe + zone de résultats
+- **Configuration notation** : 10 pénalités personnalisables
+- **Affichage score** : Note/20, lettre (A+ à F), pourcentage
+- **Statistiques** : 9 cartes colorées avec détails des erreurs
+- **Export** : Copie et téléchargement du rapport JSON
+- **États** : Welcome, Loading, Error, Results
 
 ### Technologies
-- **Frontend** : Tailwind CSS 3.x, Vanilla JavaScript (async/await)
-- **Backend** : FastAPI (Python 3.12), Jinja2 Templates
-- **APIs** : OpenAI GPT-4o Vision, OpenCV 4.x
+- **Frontend** : Tailwind CSS 3.x, JavaScript async/await
+- **Backend** : FastAPI + Jinja2
+- **API** : OpenAI GPT-4o Vision (timeout 120s, retry SSL)
 
-## 🔧 Configuration avancée
+## Configuration
 
-### Formats de multiplicité supportés
-```
-"1", "0..*", "1..*", "0..1", "*", "n", "" (vide)
-```
-
-### Types de relations UML
-```
-- association
-- aggregation (◇)
-- composition (◆)
-- inheritance (extends/généralisation)
-- realization (implements/réalisation)
-- dependency (dépendance)
-```
-
-### Paramètres de prétraitement
+### Pénalités de notation (par défaut)
 ```python
-# Dans preprocess_image.py
-MAX_DIM = 1536          # Résolution maximale
-DENOISE_H = 10          # Force du denoising
-CLAHE_CLIP_LIMIT = 2.0  # Limite de contraste
-ADAPTIVE_BLOCK_SIZE = 11 # Taille de bloc binarisation
+missing_class = 2.0          # Classe manquante
+extra_class = 1.5            # Classe en trop
+missing_attribute = 0.5      # Attribut manquant
+extra_attribute = 0.3        # Attribut en trop
+missing_operation = 0.5      # Opération manquante
+extra_operation = 0.3        # Opération en trop
+missing_relationship = 1.5   # Relation manquante
+extra_relationship = 1.0     # Relation en trop
+incorrect_multiplicity = 0.5 # Multiplicité incorrecte
+naming_issue = 0.2           # Problème de nommage
 ```
 
-## 📊 Exemples
+### Types de relations supportés
+- `association` : Association simple
+- `aggregation` : Agrégation (◇)
+- `composition` : Composition (◆)
+- `inheritance` : Héritage/Généralisation
+- `realization` : Réalisation/Implémentation
+- `dependency` : Dépendance
 
-### Format JSON de référence
+## Format JSON
+
+### Structure du diagramme de référence
 ```json
 {
   "classes": [
@@ -241,34 +273,46 @@ ADAPTIVE_BLOCK_SIZE = 11 # Taille de bloc binarisation
 
 ## 🐛 Dépannage
 
-### Erreur 400 API
-- Vérifier la clé API dans `.env`
-- Confirmer le modèle : `gpt-4o` (pas `gpt-5`)
+### Erreur 401 API OpenAI
+```bash
+# Vérifier la clé API dans .env
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
+```
+
+### Erreur SSL UNEXPECTED_EOF_WHILE_READING
+- Le système utilise un retry automatique avec `verify=False` en fallback
+- Consultez `docs/TROUBLESHOOTING.md` pour plus de détails
 
 ### Image non reconnue
-- Vérifier le format : PNG/JPG supportés
-- Améliorer la qualité : scanner haute résolution (300 DPI minimum)
-- Contraste : fond blanc, traits noirs épais
+- **Format** : PNG ou JPG uniquement
+- **Qualité** : 300 DPI minimum recommandé
+- **Contraste** : Fond blanc, traits noirs épais
+- **Taille** : Éviter les images trop petites (<800px)
 
 ### Installation OpenCV échouée
 ```powershell
+# Alternative headless (sans interface graphique)
 pip install opencv-python-headless
 ```
 
-## 📝 Licence
+## Documentation complète
 
-MIT License - Libre d'utilisation pour l'enseignement et la recherche.
+Pour plus de détails, consultez :
+- **docs/ARCHITECTURE.md** : Architecture technique détaillée
+- **docs/INSTALLATION.md** : Guide d'installation pas à pas
+- **docs/TROUBLESHOOTING.md** : Résolution de problèmes courants
+- **docs/PROMPT_OPTIMIZED.md** : Détails du prompt GPT-4o Vision
 
-## 🤝 Contribution
+## Licence
 
-Les contributions sont bienvenues ! Créez une issue ou un pull request.
+Projet académique - Utilisation libre pour l'enseignement et la recherche.
 
-## 📞 Support
+## Auteur
 
-Pour toute question technique : ouvrir une issue sur GitHub.
+**Saifoulaye Diallo**
+- GitHub: [@Saifoulaye-Diallo](https://github.com/Saifoulaye-Diallo)
+- Repository: [uml_detection_automatique](https://github.com/Saifoulaye-Diallo/uml_detection_automatique)
 
 ---
 
-**UML Vision Grader Pro v2.0** • Propulsé par GPT-4o Vision, OpenCV & FastAPI • 2025
-
-FIN
+**UML Vision Grader Pro v2.0** • GPT-4o Vision × OpenCV × FastAPI • Décembre 2025

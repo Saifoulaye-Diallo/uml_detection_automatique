@@ -63,24 +63,24 @@ Le fichier de sortie contiendra les différences détaillées :
 
     # Vérification de l'existence des fichiers
     if not os.path.exists(args.student):
-        print(f"❌ Erreur: Le fichier '{args.student}' n'existe pas.", file=sys.stderr)
+        print(f"[ERREUR] Le fichier '{args.student}' n'existe pas.", file=sys.stderr)
         sys.exit(1)
     
     if not os.path.exists(args.reference):
-        print(f"❌ Erreur: Le fichier '{args.reference}' n'existe pas.", file=sys.stderr)
+        print(f"[ERREUR] Le fichier '{args.reference}' n'existe pas.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"📊 Chargement de la référence depuis '{args.reference}'...")
+    print(f"[INFO] Chargement de la référence depuis '{args.reference}'...")
     with open(args.reference, encoding='utf-8') as f:
         ref_json = f.read()
 
-    print(f"🖼️  Analyse de l'image '{args.student}' avec GPT-4o Vision...")
-    print("⏳ Cela peut prendre 15-30 secondes...")
+    print(f"[INFO] Analyse de l'image '{args.student}' avec GPT-4o Vision...")
+    print("[INFO] Cela peut prendre 15-30 secondes...")
     
     try:
         diff = extract_uml_json_from_image(args.student, reference_json=ref_json)
     except Exception as e:
-        print(f"❌ Erreur lors de l'analyse : {e}", file=sys.stderr)
+        print(f"[ERREUR] Erreur lors de l'analyse : {e}", file=sys.stderr)
         sys.exit(1)
 
     print(f"💾 Écriture du rapport dans '{args.diff}'...")

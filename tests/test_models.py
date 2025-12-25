@@ -20,7 +20,7 @@ def test_attribute_serialization():
     attr2 = UMLAttribute.from_dict(data)
     assert attr2.name == "age"
     assert attr2.type == "int"
-    print("✅ test_attribute_serialization passed")
+    print("[OK] test_attribute_serialization passed")
 
 
 def test_operation_serialization():
@@ -39,7 +39,7 @@ def test_operation_serialization():
     op2 = UMLOperation.from_dict(data)
     assert op2.name == "setAge"
     assert op2.return_type == "void"
-    print("✅ test_operation_serialization passed")
+    print("[OK] test_operation_serialization passed")
 
 
 def test_class_serialization():
