@@ -10,6 +10,8 @@ jobs:
   test:
     name: Tests automatiques
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
     
     steps:
     - name: Checkout code
@@ -27,15 +29,11 @@ jobs:
         pip install -r requirements.txt
     
     - name: Run tests
-      env:
-        PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
       run: |
         python -m pytest tests/test_complete.py -v --tb=short
       continue-on-error: false
     
     - name: Test models
-      env:
-        PYTHONPATH: ${{ github.workspace }}/src:${{ github.workspace }}
       run: |
         python tests/test_models.py
     
