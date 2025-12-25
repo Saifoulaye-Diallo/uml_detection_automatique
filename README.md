@@ -436,4 +436,4 @@ Projet académique - Utilisation libre pour l'enseignement et la recherche.
 
 ---
 
-**UML Vision Grader Pro v2.0** - GPT-4o Vision, OpenCV, FastAPI - Décembre 2025
+**UML Vision Grader Pro v1.0** - GPT-4o Vision, OpenCV, FastAPI - Décembre 2025

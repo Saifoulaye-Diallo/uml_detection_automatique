@@ -4,7 +4,7 @@ Ce module définit les structures de données pour représenter les éléments
 d'un diagramme UML de classes : attributs, opérations, classes et relations.
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 

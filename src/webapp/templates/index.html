@@ -79,51 +79,51 @@
             <div id="weightsPanel" class="space-y-2">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 <div>
-                  <label class="text-gray-400">Classes manquantes</label>
-                  <input type="number" name="missing_class" value="2.0" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Classes manquantes <span class="text-red-500">*</span></label>
+                  <input type="number" name="missing_class" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Classes en trop</label>
-                  <input type="number" name="extra_class" value="1.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Classes en trop <span class="text-red-500">*</span></label>
+                  <input type="number" name="extra_class" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Attributs manquants</label>
-                  <input type="number" name="missing_attribute" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Attributs manquants <span class="text-red-500">*</span></label>
+                  <input type="number" name="missing_attribute" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Attributs en trop</label>
-                  <input type="number" name="extra_attribute" value="0.3" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Attributs en trop <span class="text-red-500">*</span></label>
+                  <input type="number" name="extra_attribute" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Relations manquantes</label>
-                  <input type="number" name="missing_relationship" value="1.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Relations manquantes <span class="text-red-500">*</span></label>
+                  <input type="number" name="missing_relationship" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Relations en trop</label>
-                  <input type="number" name="extra_relationship" value="1.0" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Relations en trop <span class="text-red-500">*</span></label>
+                  <input type="number" name="extra_relationship" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Opérations manquantes</label>
-                  <input type="number" name="missing_operation" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Opérations manquantes <span class="text-red-500">*</span></label>
+                  <input type="number" name="missing_operation" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Opérations en trop</label>
-                  <input type="number" name="extra_operation" value="0.3" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Opérations en trop <span class="text-red-500">*</span></label>
+                  <input type="number" name="extra_operation" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Multiplicités incorrectes</label>
-                  <input type="number" name="incorrect_multiplicity" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Multiplicités incorrectes <span class="text-red-500">*</span></label>
+                  <input type="number" name="incorrect_multiplicity" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
                 <div>
-                  <label class="text-gray-400">Problèmes nommage</label>
-                  <input type="number" name="naming_issue" value="0.2" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                  <label class="text-gray-400">Problèmes nommage <span class="text-red-500">*</span></label>
+                  <input type="number" name="naming_issue" value="0.0" step="0.1" required class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Submit Button -->
-          <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition shadow-lg">
+          <button type="submit" id="submitBtn" disabled class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition shadow-lg opacity-50 cursor-not-allowed">
             <span id="btnText">Lancer l'analyse</span>
           </button>
         </form>
@@ -131,7 +131,7 @@
 
       <!-- Footer -->
       <div class="p-4 border-t border-gray-700 text-center text-xs text-gray-500">
-        UML Vision Grader Pro v2.0 • 2025
+        UML Vision Grader Pro v1.0 • 2025
       </div>
     </div>
 
@@ -267,8 +267,33 @@
       }
     }
 
-    // Form submission
+    // Validation du formulaire en temps réel
     const form = document.getElementById('compareForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    function validateForm() {
+      const imgFile = document.getElementById('studentImg').files.length > 0;
+      const jsonFile = document.getElementById('referenceJson').files.length > 0;
+      const allInputs = Array.from(form.querySelectorAll('input[required]'));
+      const allFilled = allInputs.every(input => input.value !== '');
+      
+      if (imgFile && jsonFile && allFilled) {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+    
+    // Écouter les changements sur tous les champs requis
+    form.addEventListener('input', validateForm);
+    form.addEventListener('change', validateForm);
+    
+    // Initialiser l'état du bouton
+    validateForm();
+
+    // Form submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       

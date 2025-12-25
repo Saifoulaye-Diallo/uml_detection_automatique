@@ -439,9 +439,9 @@ pytest tests/test_complete.py -v
 
 ---
 
-**Version** : 2.1  
+**Version** : 1.0  
 **Dernière mise à jour** : Décembre 2025  
 **Note qualité** : 9.7/10 (voir OPTIMISATIONS.md)
 
-**Version:** 2.0  
+**Version:** 1.0  
 **Dernière mise à jour:** 2025-12-06

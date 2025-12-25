@@ -8,7 +8,7 @@ Variables d'environnement requises:
     OPENAI_API_BASE: URL de base de l'API OpenAI (optionnel)
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 

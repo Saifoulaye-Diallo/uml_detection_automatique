@@ -10,7 +10,7 @@ Le prompt est conçu en 4 phases rigoureuses pour minimiser les hallucinations
 et garantir une comparaison stricte et déterministe.
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 

@@ -282,17 +282,14 @@ OPTIMISATIONS.md - Sécurité (15 min)
 - README.md basique
 - Pas de documentation technique
 
-### Version 1.5 (Décembre 2025)
+### Version 1.0 (Décembre 2025)
+- Version initiale
 - Ajout ARCHITECTURE.md
 - Ajout API_REFERENCE.md
 - Ajout INSTALLATION.md
-
-### Version 2.0 (Décembre 2025)
 - Ajout TROUBLESHOOTING.md (600+ lignes)
 - Ajout OPTIMISATIONS.md
 - Mise à jour README.md
-
-### Version 2.1 (25 Décembre 2025)
 - Ajout TESTING.md (tests, CI/CD)
 - Ajout LOGGING.md (système de logs)
 - Ajout INDEX.md (index complet)

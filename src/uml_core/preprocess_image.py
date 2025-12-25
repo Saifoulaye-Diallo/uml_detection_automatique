@@ -5,7 +5,7 @@ une image de diagramme UML brute en une version optimisée pour la
 reconnaissance par modèle vision (GPT-4o Vision).
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 

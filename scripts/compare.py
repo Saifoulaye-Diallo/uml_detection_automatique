@@ -10,7 +10,7 @@ Usage:
     python compare_image.py --student diagram.jpg --reference ref.json --diff output.json
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 

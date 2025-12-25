@@ -9,7 +9,7 @@ Endpoints:
     POST /compare   - Analyse et comparaison (retourne JSON)
 
 Author: UML Vision Grader Pro
-Version: 2.0
+Version: 1.0
 Date: 2025
 """
 
@@ -35,7 +35,7 @@ limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(
     title="UML Vision Grader Pro",
     description="Correction automatique de diagrammes UML par IA",
-    version="2.0"
+    version="1.0"
 )
 
 app.state.limiter = limiter
