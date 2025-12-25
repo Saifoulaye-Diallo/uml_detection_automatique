@@ -1,4 +1,4 @@
-# 🚀 Démarrage rapide
+﻿# Démarrage rapide
 
 Trois façons de lancer l'application :
 
@@ -40,11 +40,11 @@ cat logs/uml_grader_*.log
 ---
 
 **Nouvelles fonctionnalités:**
-- ✅ Interface responsive (mobile + desktop)
-- ✅ Rate limiting: 10 requêtes/minute
-- ✅ Validation uploads: 10MB max, types MIME stricts
-- ✅ Tests automatisés: 19 tests avec CI/CD
-- ✅ Logging professionnel: console + fichiers avec rotation
+- Interface responsive (mobile + desktop)
+- Rate limiting: 10 requêtes/minute
+- Validation uploads: 10MB max, types MIME stricts
+- Tests automatisés: 19 tests avec CI/CD
+- Logging professionnel: console + fichiers avec rotation
 
 ---
 

@@ -1,4 +1,4 @@
-# Guide d'installation rapide
+﻿# Guide d'installation rapide
 
 ## Prérequis
 - Python 3.8 ou supérieur

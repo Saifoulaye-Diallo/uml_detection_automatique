@@ -1,10 +1,10 @@
-# Documentation Technique - UML Vision Grader Pro
+﻿# Documentation Technique - UML Vision Grader Pro
 
 Ce dossier contient toute la documentation technique du projet.
 
 ---
 
-## 📚 Fichiers disponibles
+## Fichiers disponibles
 
 | Fichier | Description | Pages | Niveau |
 |---------|-------------|-------|--------|
@@ -21,7 +21,7 @@ Ce dossier contient toute la documentation technique du projet.
 
 ---
 
-## 🚀 Par où commencer ?
+## Par où commencer ?
 
 ### Débutant (Première utilisation)
 1. ✅ **INSTALLATION.md** (10 min)
@@ -41,7 +41,7 @@ Ce dossier contient toute la documentation technique du projet.
 
 ---
 
-## 🔍 Recherche rapide
+## Recherche rapide
 
 ### Problème d'installation ?
 → **INSTALLATION.md** + **TROUBLESHOOTING.md** §6-13
@@ -60,7 +60,7 @@ Ce dossier contient toute la documentation technique du projet.
 
 ---
 
-## 📈 Statistiques
+## Statistiques
 
 - **8 fichiers** Markdown
 - **5000+ lignes** de documentation
@@ -70,7 +70,7 @@ Ce dossier contient toute la documentation technique du projet.
 
 ---
 
-## 🔗 Liens utiles
+## Liens utiles
 
 - [Retour au README principal](../README.md)
 - [Guide de démarrage rapide](../QUICKSTART.md)
@@ -82,4 +82,4 @@ Ce dossier contient toute la documentation technique du projet.
 
 **Version** : 2.1  
 **Dernière mise à jour** : Décembre 2025  
-**Note qualité** : 9.5/10 ⭐
+**Note qualité** : 9.5/10

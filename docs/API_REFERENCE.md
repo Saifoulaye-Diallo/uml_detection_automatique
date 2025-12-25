@@ -1,4 +1,4 @@
-# API Reference - Documentation Complète des Fonctions
+﻿# API Reference - Documentation Complète des Fonctions
 
 **UML Vision Grader Pro - Documentation Technique Détaillée**  
 Version: 2.0  

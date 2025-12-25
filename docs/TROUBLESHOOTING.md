@@ -1,4 +1,4 @@
-# Guide de dépannage - UML Vision Grader Pro
+﻿# Guide de dépannage - UML Vision Grader Pro
 
 Ce document contient les solutions aux problèmes les plus courants rencontrés lors de l'utilisation de l'application.
 

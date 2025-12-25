@@ -1,4 +1,4 @@
-# UML Vision Grader Pro
+﻿# UML Vision Grader Pro
 
 Système de correction automatique de diagrammes UML de classes utilisant GPT-4o Vision et OpenCV.
 
@@ -56,7 +56,7 @@ DEBUG=false
 
 **Mode DEBUG** : Activez `DEBUG=true` pour des logs détaillés dans `logs/uml_grader_*.log`
 
-## 🎯 Utilisation
+## Utilisation
 
 ### Interface Web (Recommandé)
 
@@ -321,7 +321,7 @@ naming_issue = 0.2           # Problème de nommage
 }
 ```
 
-## 🐛 Dépannage
+## Dépannage
 
 ### Erreur 401 API OpenAI
 ```bash
@@ -373,33 +373,31 @@ DEBUG=true
 
 Pour plus de détails, consultez :
 
-### 📚 Index complet
-- **docs/INDEX.md** : Index de toute la documentation disponible (11 documents)
+### Index complet
+- **docs/INDEX.md** : Index de toute la documentation disponible
 
-### 🚀 Démarrage
-- **QUICKSTART.md** : Commandes essentielles (3 min)
-- **docs/INSTALLATION.md** : Guide d'installation pas à pas (10 min)
+### Démarrage
+- **QUICKSTART.md** : Commandes essentielles
+- **docs/INSTALLATION.md** : Guide d'installation pas à pas
 
-### 🏗️ Technique
-- **docs/ARCHITECTURE.md** : Architecture technique détaillée (30 min)
-- **docs/API_REFERENCE.md** : Documentation complète des fonctions (1000+ lignes)
+### Technique
+- **docs/ARCHITECTURE.md** : Architecture technique détaillée
+- **docs/API_REFERENCE.md** : Documentation complète des fonctions
 - **docs/PROMPT_OPTIMIZED.md** : Détails du prompt GPT-4o Vision
 
-### 🧪 Tests et Qualité
-- **docs/TESTING.md** : Guide complet des tests (19 tests, CI/CD)
+### Tests et Qualité
+- **docs/TESTING.md** : Guide complet des tests
 - **pytest.ini** : Configuration des tests automatisés
 - **.github/workflows/ci.yml** : Pipeline CI/CD GitHub Actions
 
-### 📝 Logging et Monitoring
-- **docs/LOGGING.md** : Documentation du système de logs (rotation, DEBUG mode)
+### Logging et Monitoring
+- **docs/LOGGING.md** : Documentation du système de logs
 
-### 🐛 Support
-- **docs/TROUBLESHOOTING.md** : Résolution de 18 problèmes courants (600+ lignes)
+### Support
+- **docs/TROUBLESHOOTING.md** : Résolution de problèmes courants
 
-### 🔐 Sécurité
-- **OPTIMISATIONS.md** : Toutes les améliorations effectuées (note 9.7/10)
-
-**Total** : 11 documents, 5000+ lignes de documentation, ~3h de lecture
+### Sécurité
+- **OPTIMISATIONS.md** : Documentation des améliorations
 
 ## Licence
 
@@ -413,4 +411,4 @@ Projet académique - Utilisation libre pour l'enseignement et la recherche.
 
 ---
 
-**UML Vision Grader Pro v2.0** • GPT-4o Vision × OpenCV × FastAPI • Décembre 2025
+**UML Vision Grader Pro v2.0** - GPT-4o Vision, OpenCV, FastAPI - Décembre 2025

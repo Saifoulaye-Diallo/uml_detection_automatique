@@ -1,4 +1,4 @@
-# Documentation UML Vision Grader Pro
+﻿# Documentation UML Vision Grader Pro
 
 ## Architecture du projet
 

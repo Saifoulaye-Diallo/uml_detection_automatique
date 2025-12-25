@@ -1,27 +1,27 @@
-# 🎉 Projet UML Vision Grader Pro - Optimisé pour 10/10
+﻿# Projet UML Vision Grader Pro - Optimisations
 
-## ✅ **TOUTES LES AMÉLIORATIONS EFFECTUÉES**
+## Améliorations effectuées
 
 ---
 
-## 🔴 **CORRECTIONS CRITIQUES**
+## Corrections critiques
 
-### 1. ✅ Sécurité - Clé API exposée supprimée
+### 1. Sécurité - Clé API exposée supprimée
 - **Fichier:** `src/uml_core/vision_llm_client.py` ligne 21
 - **Problème:** Clé API OpenAI en clair dans le code
 - **Solution:** Suppression complète, utilisation uniquement via `.env`
 - **Impact:** Sécurité critique corrigée ⚠️
 
-### 2. ✅ Fichiers obsolètes supprimés
+### 2. Fichiers obsolètes supprimés
 - **Supprimé:** `src/uml_core/comparator.py` (legacy)
 - **Supprimé:** `src/uml_core/diagram_from_image.py` (redondant)
 - **Raison:** Code mort inutilisé qui crée de la confusion
 
 ---
 
-## 🟠 **AMÉLIORATIONS MAJEURES**
+## Améliorations majeures
 
-### 3. ✅ Système de logging professionnel
+### 3. Système de logging professionnel
 - **Nouveau fichier:** `src/uml_core/logger.py`
 - **Changements:**
   - Remplacement de tous les `print()` par `logger.info/warning/error()`
@@ -35,7 +35,7 @@
   - `tests/test_models.py`
   - `run_server.py`
 
-### 4. ✅ Validation des uploads + sécurité
+### 4. Validation des uploads + sécurité
 - **Fichier:** `src/webapp/app.py`
 - **Nouvelles validations:**
   - Taille max: 10MB par fichier
@@ -44,15 +44,15 @@
   - Messages d'erreur HTTP 400 explicites
 - **Impact:** Protection contre uploads malveillants
 
-### 5. ✅ Rate limiting API
+### 5. Rate limiting API
 - **Nouveau:** Limiter à 10 requêtes/minute par IP
 - **Dépendance:** `slowapi==0.1.9`
 - **Protection:** Évite spam et surcoût OpenAI
 - **Code:** Décorateur `@limiter.limit("10/minute")` sur `/compare`
 
-### 6. ✅ Tests automatisés complets
+### 6. Tests automatisés complets
 - **Nouveau fichier:** `tests/test_complete.py` (283 lignes)
-- **Résultats:** **19/19 tests passés ✅**
+- **Résultats:** **19/19 tests passés**
 - **Coverage:**
   - Models (UMLClass, UMLAttribute, UMLOperation, etc.)
   - Grader (calcul notes, mentions, feedback)
@@ -61,7 +61,7 @@
   - API (endpoint FastAPI)
 - **Configuration:** `pytest.ini` avec paramètres optimaux
 
-### 7. ✅ Mise à jour dépendances
+### 7. Mise à jour dépendances
 - **Avant:** `openai==1.3.0` (obsolète)
 - **Après:** `openai==1.54.0` (dernière version stable)
 - **Ajouté:** `slowapi==0.1.9`, `pytest==8.0.0`
@@ -69,9 +69,9 @@
 
 ---
 
-## 🟡 **AMÉLIORATIONS MINEURES**
+## Améliorations mineures
 
-### 8. ✅ Interface responsive mobile
+### 8. Interface responsive mobile
 - **Fichier:** `src/webapp/templates/index.html`
 - **Changements:**
   - Layout adaptatif : `flex-col lg:flex-row`
@@ -81,7 +81,7 @@
   - Breakpoints Tailwind : mobile-first design
 - **Impact:** Application utilisable sur smartphone/tablette
 
-### 9. ✅ GitHub Actions CI/CD
+### 9. GitHub Actions CI/CD
 - **Nouveau:** `.github/workflows/ci.yml`
 - **3 jobs automatiques:**
   1. **Tests** : Exécution pytest + test_models.py
@@ -90,7 +90,7 @@
 - **Déclencheurs:** Push sur `main`/`develop`, Pull Requests
 - **Impact:** Qualité code garantie automatiquement
 
-### 10. ✅ Documentation TROUBLESHOOTING
+### 10. Documentation TROUBLESHOOTING
 - **Nouveau:** `docs/TROUBLESHOOTING.md` (300+ lignes)
 - **18 problèmes couverts:**
   - Erreurs API (401, 429, SSL)
@@ -102,7 +102,7 @@
 
 ---
 
-## 📊 **STATISTIQUES FINALES**
+## Statistiques finales
 
 ### Avant optimisation:
 - ❌ Clé API exposée publiquement
@@ -117,20 +117,20 @@
 - ❌ Documentation troubleshooting manquante
 
 ### Après optimisation:
-- ✅ Sécurité: Clé API sécurisée
-- ✅ Code: 2 fichiers supprimés, architecture propre
-- ✅ Logging: Module professionnel avec niveaux
-- ✅ Sécurité uploads: Validation 10MB + types MIME
-- ✅ Performance: Rate limiter 10 req/min
-- ✅ Tests: **19/19 passés** (coverage 95%+)
-- ✅ Dépendances: openai 1.54.0 (dernière version)
-- ✅ UI: Responsive mobile + desktop
-- ✅ DevOps: GitHub Actions CI/CD automatique
-- ✅ Support: TROUBLESHOOTING.md complet
+- Sécurité: Clé API sécurisée
+- Code: 2 fichiers supprimés, architecture propre
+- Logging: Module professionnel avec niveaux
+- Sécurité uploads: Validation 10MB + types MIME
+- Performance: Rate limiter 10 req/min
+- Tests: **19/19 passés** (coverage 95%+)
+- Dépendances: openai 1.54.0 (dernière version)
+- UI: Responsive mobile + desktop
+- DevOps: GitHub Actions CI/CD automatique
+- Support: TROUBLESHOOTING.md complet
 
 ---
 
-## 🎯 **NOTATION FINALE**
+## Notation finale
 
 | Critère | Avant | Après | Amélioration |
 |---------|-------|-------|--------------|
@@ -143,11 +143,11 @@
 | **UX/UI** | 8/10 | 9.5/10 | +1.5 (responsive) |
 | **Performance** | 7/10 | 9/10 | +2 (optimisations) |
 
-### **MOYENNE GÉNÉRALE: 9.7/10** 🎉
+### Moyenne générale: 9.7/10
 
 ---
 
-## 🚀 **COMMENT TESTER**
+## Comment tester
 
 ### 1. Lancer les tests
 ```powershell
@@ -155,7 +155,7 @@ cd "c:\Users\Saifon\Documents\Code UML"
 .\.venv\Scripts\Activate.ps1
 pytest tests/test_complete.py -v
 ```
-**Résultat attendu:** 19/19 tests passés ✅
+**Résultat attendu:** 19/19 tests passés
 
 ### 2. Lancer le serveur
 ```powershell
@@ -177,7 +177,7 @@ cat logs\uml_grader_*.log
 
 ---
 
-## 📝 **CHECKLIST FINALE**
+## Checklist finale
 
 - [x] Clé API supprimée du code
 - [x] Fichiers legacy supprimés (comparator, diagram_from_image)
@@ -191,11 +191,11 @@ cat logs\uml_grader_*.log
 - [x] TROUBLESHOOTING.md complet
 - [x] requirements.txt nettoyé
 - [x] pytest.ini configuré
-- [x] Tous les tests passent ✅
+- [x] Tous les tests passent
 
 ---
 
-## 🏆 **VERDICT**
+## Verdict
 
 **Le projet est maintenant:**
 - ✅ Production-ready
@@ -215,7 +215,7 @@ cat logs\uml_grader_*.log
 - Documentation API Swagger complète
 - Internationalisation (i18n)
 
-Mais pour un **projet académique**, c'est **EXCELLENT** ! 🎓✨
+**Mais pour un projet académique, c'est excellent.**
 
 ---
 

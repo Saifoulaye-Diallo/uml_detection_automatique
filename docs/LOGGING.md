@@ -1,4 +1,4 @@
-# Documentation Logging - UML Vision Grader Pro
+﻿# Documentation Logging - UML Vision Grader Pro
 
 **Version** : 2.1  
 **Module** : `src/uml_core/logger.py`  
