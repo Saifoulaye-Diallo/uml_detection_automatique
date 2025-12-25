@@ -8,6 +8,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 from uml_core.models import UMLAttribute, UMLOperation, UMLClass, UMLRelationship
+from uml_core.logger import logger
 
 
 def test_attribute_serialization():
@@ -20,7 +21,7 @@ def test_attribute_serialization():
     attr2 = UMLAttribute.from_dict(data)
     assert attr2.name == "age"
     assert attr2.type == "int"
-    print("[OK] test_attribute_serialization passed")
+    logger.info("[OK] test_attribute_serialization passed")
 
 
 def test_operation_serialization():
@@ -39,7 +40,7 @@ def test_operation_serialization():
     op2 = UMLOperation.from_dict(data)
     assert op2.name == "setAge"
     assert op2.return_type == "void"
-    print("[OK] test_operation_serialization passed")
+    logger.info("[OK] test_operation_serialization passed")
 
 
 def test_class_serialization():
@@ -58,7 +59,7 @@ def test_class_serialization():
     cls2 = UMLClass.from_dict(data)
     assert cls2.name == "Person"
     assert len(cls2.attributes) == 1
-    print("✅ test_class_serialization passed")
+    logger.info("[OK] test_class_serialization passed")
 
 
 def test_relationship_serialization():
@@ -79,7 +80,7 @@ def test_relationship_serialization():
     rel2 = UMLRelationship.from_dict(data)
     assert rel2.source == "Student"
     assert rel2.type == "inheritance"
-    print("✅ test_relationship_serialization passed")
+    logger.info("[OK] test_relationship_serialization passed")
 
 
 if __name__ == "__main__":
@@ -87,4 +88,4 @@ if __name__ == "__main__":
     test_operation_serialization()
     test_class_serialization()
     test_relationship_serialization()
-    print("\n🎉 Tous les tests sont passés avec succès!")
+    logger.info("\nTous les tests sont passés avec succès!")

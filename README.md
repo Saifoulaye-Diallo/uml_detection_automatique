@@ -6,9 +6,13 @@ Système de correction automatique de diagrammes UML de classes utilisant GPT-4o
 
 - **Analyse IA avancée** : Utilise GPT-4o Vision pour extraire et comparer les diagrammes UML
 - **Prétraitement d'image optimisé** : Pipeline OpenCV en 11 étapes pour une reconnaissance maximale
-- **Interface web moderne** : Application FastAPI avec design gradient et animations fluides
+- **Interface web moderne** : Application FastAPI responsive (mobile + desktop) avec design gradient
 - **Comparaison rigoureuse** : Système de normalisation et détection de différences ultra-précis
 - **Rapport détaillé** : Statistiques visuelles et export JSON des différences
+- **Logging professionnel** : Système de logs structurés (console + fichiers avec rotation)
+- **Sécurité renforcée** : Validation uploads (10MB max), rate limiting (10 req/min)
+- **Tests automatisés** : 19 tests pytest avec CI/CD GitHub Actions
+- **Responsive design** : Interface adaptative mobile, tablette et desktop
 
 ## Prérequis
 
@@ -45,9 +49,12 @@ Créez un fichier `.env` à la racine du projet :
 ```env
 OPENAI_API_KEY=sk-proj-votre-clé-api-ici
 OPENAI_API_BASE=https://api.openai.com/v1
+DEBUG=false
 ```
 
 **Important** : Obtenez votre clé API sur [platform.openai.com](https://platform.openai.com/api-keys)
+
+**Mode DEBUG** : Activez `DEBUG=true` pour des logs détaillés dans `logs/uml_grader_*.log`
 
 ## 🎯 Utilisation
 
@@ -82,6 +89,23 @@ python scripts/compare.py --student examples/student.png --reference examples/so
 
 Le fichier `diff.json` sera généré à la racine avec les différences.
 
+### Tests automatisés
+
+```powershell
+# Lancer tous les tests
+pytest tests/test_complete.py -v
+
+# Tests avec coverage
+pytest tests/test_complete.py --cov=src/uml_core -v
+```
+
+**19 tests couvrant** :
+- Modèles UML (8 tests)
+- Système de grading (7 tests)
+- Sérialisation JSON (2 tests)
+- Intégration complète (1 test)
+- API FastAPI (1 test)
+
 ## Structure du projet
 
 ```
@@ -93,7 +117,7 @@ uml_detection_automatique/
 │   │   ├── preprocess_image.py  # Pipeline OpenCV (11 étapes)
 │   │   ├── grader.py            # Système de notation académique
 │   │   ├── serializer.py        # Sérialisation/désérialisation JSON
-│   │   ├── comparator.py        # Comparaison avec fuzzy matching
+│   │   ├── logger.py            # Système de logging centralisé
 │   │   └── env.py               # Variables d'environnement
 │   │
 │   └── webapp/                  # Application web FastAPI
@@ -108,7 +132,15 @@ uml_detection_automatique/
 │   └── test_openai.py           # Diagnostic API OpenAI
 │
 ├── tests/                       # Tests unitaires
-│   └── test_models.py           # Tests des modèles UML
+│   ├── test_models.py           # Tests des modèles UML
+│   └── test_complete.py         # Suite complète (19 tests)
+│
+├── .github/                     # GitHub Actions
+│   └── workflows/
+│       └── ci.yml               # Pipeline CI/CD automatique
+│
+├── logs/                        # Logs de l'application
+│   └── uml_grader_*.log         # Logs quotidiens (rotation auto)
 │
 ├── examples/                    # Exemples d'utilisation
 │   ├── student.png              # Diagramme étudiant exemple
@@ -138,7 +170,20 @@ uml_detection_automatique/
 - Export JSON du rapport de notation
 ```
 
-### 2. Prétraitement d'image (OpenCV)
+### 2. Sécurité et validation
+```python
+# Validation des uploads
+- Taille max: 10MB par fichier
+- Types MIME: image/png, image/jpeg, application/json
+- Vérification contenu avant traitement
+
+# Rate limiting
+- 10 requêtes par minute par IP
+- Protection contre spam API
+- Gestion automatique erreurs 429
+```
+
+### 3. Prétraitement d'image (OpenCV)
 ```python
 # Pipeline optimisé en 11 étapes
 1. Redimensionnement intelligent (max 1536px)
@@ -154,7 +199,7 @@ uml_detection_automatique/
 11. Export PNG optimisé
 ```
 
-### 3. Extraction IA (GPT-4o Vision)
+### 4. Extraction IA (GPT-4o Vision)
 ```python
 # Prompt optimisé en 4 phases
 PHASE 1 → Extraction depuis l'image
@@ -163,7 +208,7 @@ PHASE 3 → Comparaison avec JSON référence
 PHASE 4 → Génération rapport différences
 ```
 
-### 4. Comparaison et grading
+### 5. Comparaison et grading
 ```python
 # Détection de 10 types d'erreurs
 - Classes manquantes/en trop
@@ -202,17 +247,22 @@ PHASE 4 → Génération rapport différences
 ## Interface Web
 
 ### Fonctionnalités
-- **Layout desktop** : Sidebar fixe + zone de résultats
+- **Layout responsive** : Sidebar mobile + desktop, adaptation automatique
 - **Configuration notation** : 10 pénalités personnalisables
 - **Affichage score** : Note/20, lettre (A+ à F), pourcentage
 - **Statistiques** : 9 cartes colorées avec détails des erreurs
 - **Export** : Copie et téléchargement du rapport JSON
 - **États** : Welcome, Loading, Error, Results
+- **Rate limiting** : Protection contre spam (10 req/min)
+- **Validation uploads** : Taille et type de fichier vérifiés
 
 ### Technologies
-- **Frontend** : Tailwind CSS 3.x, JavaScript async/await
-- **Backend** : FastAPI + Jinja2
+- **Frontend** : Tailwind CSS 3.x responsive, JavaScript async/await
+- **Backend** : FastAPI + Jinja2 + slowapi (rate limiting)
 - **API** : OpenAI GPT-4o Vision (timeout 120s, retry SSL)
+- **Testing** : pytest 8.0.0 avec 19 tests automatisés
+- **CI/CD** : GitHub Actions (test/lint/security)
+- **Logging** : Module personnalisé avec rotation quotidienne
 
 ## Configuration
 
@@ -295,13 +345,61 @@ OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 pip install opencv-python-headless
 ```
 
+### Tests qui échouent
+```powershell
+# Vérifier l'environnement virtuel
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Lancer les tests avec verbose
+pytest tests/test_complete.py -v -s
+```
+
+### Logs non générés
+```powershell
+# Vérifier que le dossier logs/ existe
+mkdir logs
+
+# Activer le mode DEBUG dans .env
+DEBUG=true
+```
+
+### Erreur 429 (Rate limit)
+- Limite : 10 requêtes par minute par IP
+- Solution : Attendre 1 minute entre les uploads
+- Conseil : Configurer un rate limit plus élevé si usage intensif
+
 ## Documentation complète
 
 Pour plus de détails, consultez :
-- **docs/ARCHITECTURE.md** : Architecture technique détaillée
-- **docs/INSTALLATION.md** : Guide d'installation pas à pas
-- **docs/TROUBLESHOOTING.md** : Résolution de problèmes courants
+
+### 📚 Index complet
+- **docs/INDEX.md** : Index de toute la documentation disponible (11 documents)
+
+### 🚀 Démarrage
+- **QUICKSTART.md** : Commandes essentielles (3 min)
+- **docs/INSTALLATION.md** : Guide d'installation pas à pas (10 min)
+
+### 🏗️ Technique
+- **docs/ARCHITECTURE.md** : Architecture technique détaillée (30 min)
+- **docs/API_REFERENCE.md** : Documentation complète des fonctions (1000+ lignes)
 - **docs/PROMPT_OPTIMIZED.md** : Détails du prompt GPT-4o Vision
+
+### 🧪 Tests et Qualité
+- **docs/TESTING.md** : Guide complet des tests (19 tests, CI/CD)
+- **pytest.ini** : Configuration des tests automatisés
+- **.github/workflows/ci.yml** : Pipeline CI/CD GitHub Actions
+
+### 📝 Logging et Monitoring
+- **docs/LOGGING.md** : Documentation du système de logs (rotation, DEBUG mode)
+
+### 🐛 Support
+- **docs/TROUBLESHOOTING.md** : Résolution de 18 problèmes courants (600+ lignes)
+
+### 🔐 Sécurité
+- **OPTIMISATIONS.md** : Toutes les améliorations effectuées (note 9.7/10)
+
+**Total** : 11 documents, 5000+ lignes de documentation, ~3h de lecture
 
 ## Licence
 

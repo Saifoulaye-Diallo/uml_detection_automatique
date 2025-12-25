@@ -5,8 +5,11 @@ python-multipart==0.0.9
 python-dotenv==1.0.0
 jinja2==3.1.2
 
+# Rate limiting
+slowapi==0.1.9
+
 # AI/ML
-openai==1.3.0
+openai==1.54.0
 
 # Image processing
 opencv-python==4.8.1.78
@@ -14,3 +17,11 @@ numpy==1.26.0
 
 # HTTP client
 requests==2.31.0
+
+# Testing
+pytest==8.0.0
+
+# Development (optional)
+# black==24.0.0
+# flake8==7.0.0
+# isort==5.13.0

@@ -11,19 +11,22 @@ Ou avec uvicorn directement depuis src/:
 import sys
 import os
 
+# Ajouter src au path pour le logger
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+from uml_core.logger import logger
+
 # Changer le répertoire de travail vers src/
 src_dir = os.path.join(os.path.dirname(__file__), 'src')
 os.chdir(src_dir)
-sys.path.insert(0, src_dir)
 
 if __name__ == "__main__":
     import uvicorn
     
-    print("🚀 Démarrage de UML Vision Grader Pro...")
-    print(f"📁 Répertoire de travail: {os.getcwd()}")
-    print("🌐 URL: http://localhost:8000")
-    print("📖 Documentation API: http://localhost:8000/docs")
-    print("-" * 60)
+    logger.info("Démarrage de UML Vision Grader Pro...")
+    logger.info(f"Répertoire de travail: {os.getcwd()}")
+    logger.info("URL: http://localhost:8000")
+    logger.info("Documentation API: http://localhost:8000/docs")
+    logger.info("-" * 60)
     
     uvicorn.run(
         "webapp.app:app",

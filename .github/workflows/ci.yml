@@ -1,0 +1,90 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Tests automatiques
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        python -m pytest tests/test_complete.py -v --tb=short
+      continue-on-error: false
+    
+    - name: Test models
+      run: |
+        python tests/test_models.py
+    
+    - name: Check code quality
+      run: |
+        pip install flake8
+        flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install linters
+      run: |
+        pip install flake8 black isort
+    
+    - name: Check formatting with black
+      run: |
+        black --check src/ tests/ scripts/
+      continue-on-error: true
+    
+    - name: Check import sorting
+      run: |
+        isort --check-only src/ tests/ scripts/
+      continue-on-error: true
+    
+    - name: Lint with flake8
+      run: |
+        flake8 src/ tests/ scripts/ --count --statistics
+
+  security:
+    name: Sécurité
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Check for security vulnerabilities
+      run: |
+        pip install safety bandit
+        safety check --json || true
+        bandit -r src/ -f json || true
