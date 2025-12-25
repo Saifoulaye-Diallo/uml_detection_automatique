@@ -4,21 +4,14 @@ Suite de tests pytest pour valider tous les modules du projet.
 """
 
 import pytest
-import sys
-import os
 import json
 
-# Ajouter src au path
-sys.path.insert(
-    0, os.path.join(os.path.dirname(__file__), '..', 'src')
-)
-
-from uml_core.models import (  # noqa: E402
+from uml_core.models import (
     UMLAttribute, UMLOperation, UMLClass,
     UMLRelationship, UMLDiagram
 )
-from uml_core.grader import UMLGrader, grade_uml_diff  # noqa: E402
-from uml_core.serializer import (  # noqa: E402
+from uml_core.grader import UMLGrader, grade_uml_diff
+from uml_core.serializer import (
     diagram_to_json, diagram_from_json
 )
 
@@ -283,10 +276,6 @@ class TestAPI:
     def test_root_endpoint(self):
         """Test endpoint racine."""
         from fastapi.testclient import TestClient
-        import sys
-        sys.path.insert(
-            0, os.path.join(os.path.dirname(__file__), '..', 'src')
-        )
         from webapp.app import app
 
         client = TestClient(app)

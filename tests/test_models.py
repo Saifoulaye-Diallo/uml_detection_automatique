@@ -3,20 +3,10 @@
 Ce module teste la sérialisation et désérialisation des modèles UML.
 """
 
-import sys
-import os
-
-sys.path.insert(
-    0,
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', 'src')
-    )
-)
-
-from uml_core.models import (  # noqa: E402
+from uml_core.models import (
     UMLAttribute, UMLOperation, UMLClass, UMLRelationship
 )
-from uml_core.logger import logger  # noqa: E402
+from uml_core.logger import logger
 
 
 def test_attribute_serialization():
