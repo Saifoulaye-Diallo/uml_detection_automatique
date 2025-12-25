@@ -3,7 +3,7 @@
 **Version** : 2.1  
 **Framework** : pytest 8.0.0  
 **Coverage** : 95%+  
-**Status** : ✅ 19/19 tests passés
+**Status** : 19/19 tests passés
 
 ---
 
@@ -33,12 +33,12 @@ tests/
 
 | Catégorie | Nombre de tests | Status |
 |-----------|----------------|--------|
-| Modèles UML | 8 tests | ✅ 100% |
-| Grader | 7 tests | ✅ 100% |
-| Serializer | 2 tests | ✅ 100% |
-| Integration | 1 test | ✅ 100% |
-| API FastAPI | 1 test | ✅ 100% |
-| **TOTAL** | **19 tests** | **✅ 100%** |
+| Modèles UML | 8 tests | 100% |
+| Grader | 7 tests | 100% |
+| Serializer | 2 tests | 100% |
+| Integration | 1 test | 100% |
+| API FastAPI | 1 test | 100% |
+| **TOTAL** | **19 tests** | **100%** |
 
 ---
 
@@ -119,7 +119,7 @@ def test_uml_class_serialization()
 **Exemple d'exécution :**
 ```bash
 pytest tests/test_complete.py::TestModels -v
-# Résultat: 8 passed ✅
+# Résultat: 8 passed
 ```
 
 ---
@@ -163,7 +163,7 @@ def test_feedback_generation()
 **Exemple d'exécution :**
 ```bash
 pytest tests/test_complete.py::TestGrader -v
-# Résultat: 7 passed ✅
+# Résultat: 7 passed
 ```
 
 ---
@@ -187,7 +187,7 @@ def test_diagram_from_json()
 **Exemple d'exécution :**
 ```bash
 pytest tests/test_complete.py::TestSerializer -v
-# Résultat: 2 passed ✅
+# Résultat: 2 passed
 ```
 
 ---
@@ -211,7 +211,7 @@ def test_full_workflow()
 **Exemple d'exécution :**
 ```bash
 pytest tests/test_complete.py::TestIntegration -v
-# Résultat: 1 passed ✅
+# Résultat: 1 passed
 ```
 
 ---
@@ -231,7 +231,7 @@ def test_root_endpoint()
 **Exemple d'exécution :**
 ```bash
 pytest tests/test_complete.py::TestAPI -v
-# Résultat: 1 passed ✅
+# Résultat: 1 passed
 ```
 
 ---
@@ -500,4 +500,4 @@ pip install pytest==8.0.0 pytest-cov>=4.1.0
 **Auteur** : GitHub Copilot  
 **Date** : Décembre 2025  
 **Version** : 2.1  
-**Status** : ✅ Production-ready
+**Status** : Production-ready

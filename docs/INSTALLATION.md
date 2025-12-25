@@ -140,11 +140,11 @@ Code UML/
 Pour plus de détails, consultez [README.md](../README.md), [docs/ARCHITECTURE.md](ARCHITECTURE.md) et [docs/TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 **Nouvelles fonctionnalités :**
-- ✅ Logging professionnel avec rotation quotidienne
-- ✅ Tests automatisés (19 tests, 100% pass rate)
-- ✅ Rate limiting (10 req/min)
-- ✅ Validation uploads (10MB, types MIME)
-- ✅ Interface responsive (mobile + desktop)
-- ✅ CI/CD GitHub Actions
+- Logging professionnel avec rotation quotidienne
+- Tests automatisés (19 tests, 100% pass rate)
+- Rate limiting (10 req/min)
+- Validation uploads (10MB, types MIME)
+- Interface responsive (mobile + desktop)
+- CI/CD GitHub Actions
 
 Consultez [OPTIMISATIONS.md](../OPTIMISATIONS.md) pour les détails complets.

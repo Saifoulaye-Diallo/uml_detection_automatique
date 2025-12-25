@@ -625,4 +625,4 @@ logger.error("Échec upload fichier: taille %.2f MB dépasse limite 10MB", size_
 **Auteur** : GitHub Copilot  
 **Date** : Décembre 2025  
 **Version** : 2.1  
-**Status** : ✅ Production-ready
+**Status** : Production-ready

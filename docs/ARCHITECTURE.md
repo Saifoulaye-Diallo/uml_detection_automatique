@@ -388,16 +388,16 @@ pip install -r requirements.txt
 ### Suite de tests (test_complete.py)
 
 **19 tests couvrant:**
-- ✅ **TestModels (8 tests)** : UMLClass, UMLAttribute, UMLOperation, UMLRelationship, UMLDiagram
-- ✅ **TestGrader (7 tests)** : Système de notation, calcul de notes, mentions, feedback
-- ✅ **TestSerializer (2 tests)** : Sérialisation/désérialisation JSON
-- ✅ **TestIntegration (1 test)** : Workflow complet diff → grading
-- ✅ **TestAPI (1 test)** : Endpoint FastAPI root
+- **TestModels (8 tests)** : UMLClass, UMLAttribute, UMLOperation, UMLRelationship, UMLDiagram
+- **TestGrader (7 tests)** : Système de notation, calcul de notes, mentions, feedback
+- **TestSerializer (2 tests)** : Sérialisation/désérialisation JSON
+- **TestIntegration (1 test)** : Workflow complet diff → grading
+- **TestAPI (1 test)** : Endpoint FastAPI root
 
 **Exécution:**
 ```bash
 pytest tests/test_complete.py -v
-# Résultat attendu: 19 passed ✅
+# Résultat attendu: 19 passed
 ```
 
 **CI/CD GitHub Actions:**
