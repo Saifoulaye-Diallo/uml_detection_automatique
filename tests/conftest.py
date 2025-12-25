@@ -12,3 +12,8 @@ src_path = os.path.abspath(
 )
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
+
+# Afficher le chemin pour debug
+print(f"[conftest.py] Added to sys.path: {src_path}")
+print(f"[conftest.py] sys.path: {sys.path[:3]}")
+
