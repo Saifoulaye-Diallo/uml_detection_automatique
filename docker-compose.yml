@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  uml-grader:
+    build: .
+    container_name: uml-grader-pro
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE:-https://api.openai.com/v1}
+      - DEBUG=${DEBUG:-false}
+    volumes:
+      # Logs persistants
+      - ./logs:/app/logs
+      # Uploads temporaires
+      - ./uploads:/app/uploads
+      # Config (optionnel en dev)
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - uml-grader-network
+
+  # Service optionnel: Redis pour cache (future amélioration)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: uml-grader-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - uml-grader-network
+
+networks:
+  uml-grader-network:
+    driver: bridge
+
+# volumes:
+#   redis-data:

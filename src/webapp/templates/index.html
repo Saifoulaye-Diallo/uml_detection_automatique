@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UML Vision Grader Pro - Desktop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .gradient-animate {
+      background-size: 200% 200%;
+      animation: gradient 8s ease infinite;
+    }
+    .code-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+    .code-scroll::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 4px; }
+    .code-scroll::-webkit-scrollbar-thumb { background: #4ade80; border-radius: 4px; }
+    .code-scroll::-webkit-scrollbar-thumb:hover { background: #22c55e; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen overflow-x-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 gradient-animate">
+  
+  <div class="flex flex-col lg:flex-row min-h-screen">
+    
+    <!-- SIDEBAR LEFT -->
+    <div class="w-full lg:w-96 bg-gray-900/95 backdrop-blur-xl lg:border-r border-b lg:border-b-0 border-gray-700 flex flex-col shadow-2xl">
+      <!-- Logo -->
+      <div class="p-6 border-b border-gray-700">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-white">UML Grader</h1>
+            <p class="text-xs text-gray-400">GPT-4o Vision + OpenCV</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+        <form id="compareForm" class="space-y-4 lg:space-y-6">
+          
+          <!-- Upload Image -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-300 mb-2">
+              Diagramme UML (Image)
+            </label>
+            <input type="file" id="studentImg" name="student_img" accept="image/png,image/jpeg,image/jpg" required 
+                   class="block w-full text-sm text-gray-300 bg-gray-800 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-purple-500">
+            <div id="imgPreview" class="hidden mt-2 text-xs text-green-400"></div>
+          </div>
+
+          <!-- Upload JSON -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-300 mb-2">
+              Solution (JSON)
+            </label>
+            <input type="file" id="referenceJson" name="reference_json" accept=".json" required 
+                   class="block w-full text-sm text-gray-300 bg-gray-800 border border-gray-600 rounded-lg p-3 focus:ring-2 focus:ring-purple-500">
+            <div id="jsonPreview" class="hidden mt-2 text-xs text-green-400"></div>
+          </div>
+
+          <!-- Grading Config -->
+          <div class="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-white">Configuration Notation</h3>
+              <button type="button" onclick="toggleWeightsPanel()" class="text-xs text-purple-400 hover:text-purple-300">
+                <span id="toggleIcon">▼</span>
+              </button>
+            </div>
+            
+            <div id="weightsPanel" class="space-y-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div>
+                  <label class="text-gray-400">Classes manquantes</label>
+                  <input type="number" name="missing_class" value="2.0" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Classes en trop</label>
+                  <input type="number" name="extra_class" value="1.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Attributs manquants</label>
+                  <input type="number" name="missing_attribute" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Attributs en trop</label>
+                  <input type="number" name="extra_attribute" value="0.3" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Relations manquantes</label>
+                  <input type="number" name="missing_relationship" value="1.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Relations en trop</label>
+                  <input type="number" name="extra_relationship" value="1.0" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Opérations manquantes</label>
+                  <input type="number" name="missing_operation" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Opérations en trop</label>
+                  <input type="number" name="extra_operation" value="0.3" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Multiplicités incorrectes</label>
+                  <input type="number" name="incorrect_multiplicity" value="0.5" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+                <div>
+                  <label class="text-gray-400">Problèmes nommage</label>
+                  <input type="number" name="naming_issue" value="0.2" step="0.1" class="w-full bg-gray-700 text-white rounded px-2 py-1 text-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition shadow-lg">
+            <span id="btnText">Lancer l'analyse</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="p-4 border-t border-gray-700 text-center text-xs text-gray-500">
+        UML Vision Grader Pro v2.0 • 2025
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col bg-gray-800/30 overflow-hidden">
+      
+      <!-- Top Bar -->
+      <div class="bg-gray-800/50 border-b border-gray-700 px-4 py-3 lg:px-6 lg:py-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg lg:text-xl font-bold text-white">Résultats d'analyse</h2>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="text-sm text-gray-400">Prêt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+        
+        <!-- Loading -->
+        <div id="loading" class="hidden text-center py-20">
+          <div class="inline-block relative">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-500"></div>
+            <svg class="absolute inset-0 m-auto w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <p class="mt-4 text-white font-bold text-lg">Analyse en cours...</p>
+          <p class="text-gray-400 text-sm mt-2">GPT-4o Vision traite votre diagramme</p>
+        </div>
+
+        <!-- Error -->
+        <div id="errorSection" class="hidden bg-red-900/30 border-2 border-red-500 rounded-xl p-6">
+          <div class="flex items-start gap-4">
+            <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold text-red-300">Erreur</h3>
+              <pre id="errorContent" class="mt-2 text-sm text-red-200 bg-black/20 p-4 rounded code-scroll overflow-auto"></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsSection" class="hidden space-y-4 lg:space-y-6">
+          
+          <!-- Score Card -->
+          <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-700">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold text-white mb-2">Note finale</h3>
+                <p class="text-gray-400 text-sm" id="feedbackText"></p>
+              </div>
+              <div id="scoreDisplay" class="text-right">
+                <!-- Score injected here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div>
+            <h3 class="text-lg font-bold text-white mb-4">Détails des erreurs</h3>
+            <div id="statsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Stats cards injected here -->
+            </div>
+          </div>
+
+          <!-- Diff JSON -->
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-white">Rapport JSON</h3>
+              <div class="flex gap-2">
+                <button onclick="copyDiff()" class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 text-sm">
+                  Copier
+                </button>
+                <button onclick="downloadDiff()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm">
+                  Télécharger
+                </button>
+              </div>
+            </div>
+            <div class="bg-gray-900 rounded-xl overflow-hidden border border-gray-700">
+              <pre id="diffContent" class="code-scroll p-6 text-green-400 text-xs font-mono overflow-auto max-h-96"></pre>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Welcome State -->
+        <div id="welcomeState" class="text-center py-20">
+          <svg class="w-24 h-24 mx-auto text-gray-600 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h2 class="text-2xl font-bold text-gray-500 mb-2">Aucune analyse en cours</h2>
+          <p class="text-gray-600">Téléversez vos fichiers pour commencer</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentDiff = null;
+    let currentGrading = null;
+
+    // File previews
+    document.getElementById('studentImg').addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        document.getElementById('imgPreview').textContent = '> ' + e.target.files[0].name;
+        document.getElementById('imgPreview').classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('referenceJson').addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        document.getElementById('jsonPreview').textContent = '> ' + e.target.files[0].name;
+        document.getElementById('jsonPreview').classList.remove('hidden');
+      }
+    });
+
+    // Toggle weights panel
+    function toggleWeightsPanel() {
+      const panel = document.getElementById('weightsPanel');
+      const icon = document.getElementById('toggleIcon');
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        icon.textContent = 'v';
+      } else {
+        panel.classList.add('hidden');
+        icon.textContent = '>';
+      }
+    }
+
+    // Form submission
+    const form = document.getElementById('compareForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('welcomeState').classList.add('hidden');
+      document.getElementById('errorSection').classList.add('hidden');
+      document.getElementById('resultsSection').classList.add('hidden');
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('btnText').textContent = 'Analyse...';
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/compare', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('submitBtn').disabled = false;
+        document.getElementById('btnText').textContent = 'Lancer l\'analyse';
+
+        if (data.success) {
+          currentDiff = data.diff;
+          currentGrading = data.grading;
+          displayResults(data.diff, data.grading);
+        } else {
+          displayError(data.error);
+        }
+      } catch (error) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('submitBtn').disabled = false;
+        document.getElementById('btnText').textContent = 'Lancer l\'analyse';
+        displayError(error.message);
+      }
+    });
+
+    function displayResults(diff, grading) {
+      document.getElementById('resultsSection').classList.remove('hidden');
+      
+      // Score display
+      if (grading) {
+        const scoreColor = grading.percentage >= 80 ? 'green' : 
+                          grading.percentage >= 60 ? 'blue' : 
+                          grading.percentage >= 40 ? 'yellow' : 'red';
+        
+        document.getElementById('scoreDisplay').innerHTML = `
+          <div class="bg-gradient-to-br from-${scoreColor}-500/20 to-${scoreColor}-600/20 px-8 py-6 rounded-xl border-2 border-${scoreColor}-500">
+            <div class="text-5xl font-black text-${scoreColor}-400 mb-1">
+              ${grading.score}<span class="text-2xl text-gray-400">/${grading.max_score}</span>
+            </div>
+            <div class="text-xl font-bold text-${scoreColor}-300">${grading.grade}</div>
+            <div class="text-sm text-gray-400 mt-2">${grading.percentage.toFixed(1)}%</div>
+          </div>
+        `;
+        document.getElementById('feedbackText').textContent = grading.feedback;
+      }
+
+      // Stats cards
+      const stats = [
+        { label: 'Classes manquantes', value: diff.missing_classes?.length || 0, color: 'red' },
+        { label: 'Classes en trop', value: diff.extra_classes?.length || 0, color: 'amber' },
+        { label: 'Attributs manquants', value: diff.missing_attributes?.length || 0, color: 'red' },
+        { label: 'Attributs en trop', value: diff.extra_attributes?.length || 0, color: 'amber' },
+        { label: 'Relations manquantes', value: diff.missing_relationships?.length || 0, color: 'red' },
+        { label: 'Relations en trop', value: diff.extra_relationships?.length || 0, color: 'amber' },
+        { label: 'Opérations manquantes', value: diff.missing_operations?.length || 0, color: 'red' },
+        { label: 'Opérations en trop', value: diff.extra_operations?.length || 0, color: 'amber' },
+        { label: 'Multiplicités incorrectes', value: diff.incorrect_multiplicities?.length || 0, color: 'orange' },
+      ];
+
+      document.getElementById('statsGrid').innerHTML = stats.map(stat => `
+        <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+          <div class="text-3xl font-bold text-${stat.color}-400 mb-1">${stat.value}</div>
+          <div class="text-xs text-gray-400">${stat.label}</div>
+        </div>
+      `).join('');
+
+      // Diff JSON
+      document.getElementById('diffContent').textContent = JSON.stringify(diff, null, 2);
+    }
+
+    function displayError(message) {
+      document.getElementById('errorSection').classList.remove('hidden');
+      document.getElementById('errorContent').textContent = message;
+    }
+
+    function copyDiff() {
+      navigator.clipboard.writeText(JSON.stringify(currentDiff, null, 2));
+      alert('Diff copié !');
+    }
+
+    function downloadDiff() {
+      const blob = new Blob([JSON.stringify({diff: currentDiff, grading: currentGrading}, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'uml-grading-report.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

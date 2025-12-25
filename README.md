@@ -22,6 +22,20 @@ Système de correction automatique de diagrammes UML de classes utilisant GPT-4o
 
 ## Installation
 
+### Option 1 : Installation automatique (Recommandé)
+
+**Windows PowerShell :**
+```powershell
+.\install.ps1
+```
+
+Le script installe automatiquement :
+- Environnement virtuel Python
+- Toutes les dépendances
+- Configuration `.env` depuis `.env.example`
+
+### Option 2 : Installation manuelle
+
 ### 1. Cloner le projet
 ```bash
 git clone https://github.com/Saifoulaye-Diallo/uml_detection_automatique.git
@@ -42,6 +56,7 @@ source .venv/bin/activate
 ### 3. Installer les dépendances
 ```powershell
 pip install -r requirements.txt
+pip install -e .  # Installation en mode développement
 ```
 
 ### 4. Configuration de l'API OpenAI
@@ -55,6 +70,16 @@ DEBUG=false
 **Important** : Obtenez votre clé API sur [platform.openai.com](https://platform.openai.com/api-keys)
 
 **Mode DEBUG** : Activez `DEBUG=true` pour des logs détaillés dans `logs/uml_grader_*.log`
+
+### Option 3 : Installation avec Docker
+
+Voir [DOCKER.md](DOCKER.md) pour le guide complet.
+
+**Lancement rapide :**
+```bash
+echo "OPENAI_API_KEY=sk-proj-votre-clé" > .env
+docker-compose up -d
+```
 
 ## Utilisation
 

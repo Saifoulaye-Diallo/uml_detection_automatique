@@ -45,11 +45,20 @@ student_extracted.json
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
 
-# Anciens dossiers (migration)
-uml_core/
-webapp/
-core/
-compare_image.py
-compare_json.py
-test_openai_key.py
+# Documentation build
+docs/_build/
+site/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Anciens dossiers (migration - supprimés)
+# uml_core/ (maintenant dans src/)
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
