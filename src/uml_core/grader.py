@@ -12,16 +12,16 @@ class UMLGrader:
     
     # Poids des erreurs (points perdus par erreur)
     WEIGHTS = {
-        "missing_class": 2.0,           # Classe manquante = -2 pts
-        "extra_class": 1.5,             # Classe en trop = -1.5 pts
-        "missing_attribute": 0.5,       # Attribut manquant = -0.5 pts
-        "extra_attribute": 0.3,         # Attribut en trop = -0.3 pts
-        "missing_operation": 0.5,       # Opération manquante = -0.5 pts
-        "extra_operation": 0.3,         # Opération en trop = -0.3 pts
-        "missing_relationship": 1.5,    # Relation manquante = -1.5 pts
-        "extra_relationship": 1.0,      # Relation en trop = -1 pts
-        "incorrect_multiplicity": 0.5,  # Multiplicité incorrecte = -0.5 pts
-        "naming_issue": 0.2,            # Problème de nommage = -0.2 pts
+        "missing_class": 0.0,           # Classe manquante = -2 pts
+        "extra_class": 0.0,             # Classe en trop = -1.5 pts
+        "missing_attribute": 0.0,       # Attribut manquant = -0.5 pts
+        "extra_attribute": 0.0,         # Attribut en trop = -0.3 pts
+        "missing_operation": 0.0,       # Opération manquante = -0.5 pts
+        "extra_operation": 0.0,         # Opération en trop = -0.3 pts
+        "missing_relationship": 0.0,    # Relation manquante = -1.5 pts
+        "extra_relationship": 0.0,      # Relation en trop = -1 pts
+        "incorrect_multiplicity": 0.0,  # Multiplicité incorrecte = -0.5 pts
+        "naming_issue": 0.0,            # Problème de nommage = -0.2 pts
     }
     
     @staticmethod

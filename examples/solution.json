@@ -1,150 +1,145 @@
 {
   "classes": [
     {
-      "name": "Employee",
+      "name": "Ville",
+      "attributes": [
+        { "name": "nomVille", "type": "String" },
+        { "name": "nomAeroport", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Aeroport",
+      "attributes": [
+        { "name": "nomAeroport", "type": "String" },
+        { "name": "nomVilleAeroport", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Escale",
+      "attributes": [
+        { "name": "heureDepart", "type": "Time" },
+        { "name": "heureArrivee", "type": "Time" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "CompagnieAerienne",
+      "attributes": [
+        { "name": "nomCompagnie", "type": "String" },
+        { "name": "nombreAvion", "type": "int" },
+        { "name": "nombreClient", "type": "int" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Client",
+      "attributes": [
+        { "name": "nomClient", "type": "String" },
+        { "name": "prenomClient", "type": "String" },
+        { "name": "dateNaissance", "type": "Date" },
+        { "name": "numeroTelephone", "type": "String" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Vol",
+      "attributes": [
+        { "name": "aeroportDepart", "type": "String" },
+        { "name": "aeroportArrivee", "type": "String" },
+        { "name": "heureDepart", "type": "Time" },
+        { "name": "heureArrivee", "type": "Time" },
+        { "name": "etatVol", "type": "EtatVol" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Reservation",
+      "attributes": [
+        { "name": "numeroReservation", "type": "String" },
+        { "name": "destination", "type": "String" },
+        { "name": "nomPassager", "type": "String" },
+        { "name": "etatReservation", "type": "EtatReservation" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "Passager",
+      "attributes": [
+        { "name": "nom", "type": "String" },
+        { "name": "prenom", "type": "String" },
+        { "name": "dateNaissance", "type": "Date" }
+      ],
+      "operations": []
+    },
+    {
+      "name": "EtatVol",
       "attributes": [],
       "operations": []
     },
     {
-      "name": "Customer",
+      "name": "EtatReservation",
       "attributes": [],
       "operations": []
-    },
-    {
-      "name": "Person",
-      "attributes": [
-        {"name": "id", "type": "int"},
-        {"name": "name", "type": "String"},
-        {"name": "email", "type": "String"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "Order",
-      "attributes": [
-        {"name": "number", "type": "String"},
-        {"name": "date", "type": "Date"},
-        {"name": "status", "type": "String"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "OrderLine",
-      "attributes": [
-        {"name": "quantity", "type": "int"},
-        {"name": "unitPrice", "type": "double"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "Payment",
-      "attributes": [
-        {"name": "amount", "type": "double"},
-        {"name": "method", "type": "String"},
-        {"name": "date", "type": "Date"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "Invoice",
-      "attributes": [
-        {"name": "number", "type": "String"},
-        {"name": "total", "type": "double"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "Product",
-      "attributes": [
-        {"name": "sku", "type": "String"},
-        {"name": "label", "type": "String"},
-        {"name": "price", "type": "double"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "Category",
-      "attributes": [
-        {"name": "name", "type": "String"}
-      ],
-      "operations": []
-    },
-    {
-      "name": "NotificationService",
-      "attributes": [],
-      "operations": [
-        {
-          "name": "sendEmail",
-          "parameters": ["order: Order"],
-          "return_type": "void"
-        }
-      ]
     }
   ],
   "relationships": [
     {
-      "type": "inheritance",
-      "from": "Employee",
-      "to": "Person",
-      "multiplicity_from": "",
-      "multiplicity_to": "",
-      "role_name": ""
-    },
-    {
-      "type": "inheritance",
-      "from": "Customer",
-      "to": "Person",
-      "multiplicity_from": "",
-      "multiplicity_to": "",
-      "role_name": ""
+      "type": "association",
+      "from": "Ville",
+      "to": "Aeroport",
+      "multiplicity_from": "1",
+      "multiplicity_to": "1..*",
+      "role_name": "dessert"
     },
     {
       "type": "association",
-      "from": "Customer",
-      "to": "Order",
+      "from": "Aeroport",
+      "to": "Escale",
       "multiplicity_from": "1",
-      "multiplicity_to": "0..*",
-      "role_name": "places"
-    },
-    {
-      "type": "dependency",
-      "from": "NotificationService",
-      "to": "Order",
-      "multiplicity_from": "",
-      "multiplicity_to": "",
-      "role_name": "uses"
+      "multiplicity_to": "1..*",
+      "role_name": "peutAvoir"
     },
     {
       "type": "composition",
-      "from": "Order",
-      "to": "OrderLine",
+      "from": "Vol",
+      "to": "Escale",
+      "multiplicity_from": "1",
+      "multiplicity_to": "*",
+      "role_name": "contient"
+    },
+    {
+      "type": "association",
+      "from": "CompagnieAerienne",
+      "to": "Vol",
+      "multiplicity_from": "1",
+      "multiplicity_to": "*",
+      "role_name": "propose"
+    },
+    {
+      "type": "association",
+      "from": "Client",
+      "to": "Vol",
       "multiplicity_from": "1",
       "multiplicity_to": "1..*",
-      "role_name": "composition"
+      "role_name": "effectue"
     },
     {
       "type": "association",
-      "from": "Order",
-      "to": "Payment",
+      "from": "Reservation",
+      "to": "Vol",
       "multiplicity_from": "1",
-      "multiplicity_to": "0..*",
-      "role_name": "pays"
-    },
-    {
-      "type": "association",
-      "from": "Order",
-      "to": "Invoice",
-      "multiplicity_from": "0..1",
       "multiplicity_to": "1",
-      "role_name": "generates"
+      "role_name": "concerne"
     },
     {
-      "type": "aggregation",
-      "from": "Category",
-      "to": "Product",
+      "type": "association",
+      "from": "Reservation",
+      "to": "Passager",
       "multiplicity_from": "1",
-      "multiplicity_to": "0..*",
-      "role_name": "groups"
+      "multiplicity_to": "1",
+      "role_name": "concerne"
     }
   ]
 }

@@ -12,13 +12,11 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Installer les dépendances système pour OpenCV
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Répertoire de travail
+    # Installer les dépendances système pour OpenCV
+    RUN apt-get update && apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 \
+        && rm -rf /var/lib/apt/lists/*# Répertoire de travail
 WORKDIR /app
 
 # Copier requirements et installer dépendances Python
